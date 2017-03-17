@@ -2,7 +2,7 @@ sig trie.
 accum_sig tuple, tree, strings, maybe, control.
 
 kind trie   (type -> type).
-type tnode  (maybe A -> tree int (trie A) -> trie A).
+type tnode  (maybe A -> tree string (trie A) -> trie A).
 
 type tsingleton  string -> A -> trie A -> o.
 type tlookup     string -> trie A -> A -> o.
