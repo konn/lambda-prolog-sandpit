@@ -66,3 +66,6 @@ Temporary Items
 # Teyjus (lambda-prolog)
 *.lpo
 *.lp
+
+# Shake build system
+.shake.*
