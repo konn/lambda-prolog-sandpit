@@ -1,14 +1,14 @@
 module tree.
-accumulate tuple, lists, control.
+accumulate tuple, lists, control, order.
 % Simple unbalanced binary tree.
 
 singleton A X (branch A X empty empty).
 
 insertBy P A X empty (branch A X empty empty).
 insertBy P A X (branch B Y L R) (branch B Y L' R) :-
-  A < B, !, insert A X L L'.
+  A lt B, !, insert A X L L'.
 insertBy P A X (branch B Y L R) (branch B Y L R') :-
-  B < A, !, insert A X R R'.
+  B lt A, !, insert A X R R'.
 insertBy P A X (branch _ Y L R) (branch A Z L R) :-
   P X Y Z.
 
@@ -17,16 +17,16 @@ insert A X T S :- insertBy (X\ Y\ Z\ Z = Y) A X T S.
 delete A empty empty.
 delete A (branch B X L R) T :- A is B, merge L R T.
 delete A (branch B X L R) (branch B X L' R) :-
-  B > A, delete A L L'.
+  B gt A, delete A L L'.
 delete B (branch B X L R) (branch B X L R') :-
-  A > B, delete A R R'.
+  A gt B, delete A R R'.
 
 mergeBy P empty T T :- !.
 mergeBy P T empty T :- !.
 mergeBy P (branch A X L R) (branch B Y L' R') (branch A X L'' R) :-
-  B < A, mergeBy P L (branch B Y L' R') L''.
+  B lt A, mergeBy P L (branch B Y L' R') L''.
 mergeBy P (branch A X L R) (branch B Y L' R') (branch A X L R'') :-
-  A < B, mergeBy P R (branch B Y L' R') R''.
+  A lt B, mergeBy P R (branch B Y L' R') R''.
 mergeBy P (branch A X L R) (branch A Y L' R') (branch A Z L'' R'') :-
   P X Y Z, mergeBy P L L' L'', mergeBy P R R' R''.
 
@@ -34,9 +34,9 @@ merge L R S :- mergeBy (X\ Y\ Z\ Z = Y) L R S.
 
 lookup A (branch A X _ _) X :- !.
 lookup A (branch B X L R) Z :-
-  A < B, lookup A L Z.
+  A lt B, lookup A L Z.
 lookup A (branch B X L R) Z :-
-  B < A, lookup A R Z.
+  B lt A, lookup A R Z.
 
 list_to_tree Xs T :-
   foldedr (Pr\ Old\ New\ sigma X\ sigma Y\

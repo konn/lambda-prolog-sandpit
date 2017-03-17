@@ -1,5 +1,5 @@
 sig tree.
-accum_sig tuple, lists, control.
+accum_sig tuple, lists, control, order.
 
 kind tree   (type -> type -> type).
 type empty  (tree A B).
