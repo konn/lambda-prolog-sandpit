@@ -15,4 +15,4 @@ infixr and 130.
 infixr or  120.
 infixr -->  100.
 
-exportdef pnf form -> form -> o.
+type pnf form -> form -> o.

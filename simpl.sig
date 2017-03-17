@@ -10,8 +10,8 @@ infixl ++, --  150.
 prefix ~~      155.
 infixl **, //  160.
 
-exportdef reify      (real -> real) -> expr -> o.
-exportdef interpret  expr -> (real -> real) -> o.
-exportdef simplE     expr -> expr -> o.
-exportdef simpl      (real -> real) -> (real -> real) -> o.
-exportdef split (expr -> expr -> expr -> o) -> expr -> list expr -> o.
+type reify      (real -> real) -> expr -> o.
+type interpret  expr -> (real -> real) -> o.
+type simplE     expr -> expr -> o.
+type simpl      (real -> real) -> (real -> real) -> o.
+type split (expr -> expr -> expr -> o) -> expr -> list expr -> o.
