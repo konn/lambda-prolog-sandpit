@@ -1,5 +1,5 @@
 module tree.
-accumulate tuple, lists.
+accumulate tuple, lists, control.
 % Simple unbalanced binary tree.
 
 singleton A X (branch A X empty empty).
@@ -48,7 +48,25 @@ tree_to_list (branch A X L R) Xs :-
   append Ls ((A pair X) :: Rs) Xs.
 
 foldTree _ C empty C.
-foldTree P C (branch X Y L R) Z :-
-  foldTree P C R D,
-  P X Y D E,
-  foldTree P E L Z.
+foldTree P C (branch K V L R) Acc :-
+  foldTree P C L LAcc,
+  foldTree P C R RAcc,
+  P K V LAcc RAcc Acc.
+
+filterTree P T S :-
+  foldTree (K\ V\ LAcc\ RAcc\ Result\
+               ((P K V, Result = branch K V LAcc RAcc);
+                (not (P K V), merge LAcc RAcc Result))
+           )
+           empty
+           T
+           S.
+
+map_tree P T S :-
+  foldTree (K\ V\ LAcc\ RAcc\ Result\ sigma V'\
+             ((P K V V', Result = branch K V' LAcc RAcc)
+             ;(not (P K V V'), merge LAcc RAcc Result))
+           )
+           empty
+           T
+           S.

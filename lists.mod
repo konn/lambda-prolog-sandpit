@@ -1,4 +1,5 @@
 module lists.
+accumulate control.
 
 deleteAll X [] [].
 deleteAll X (X :: Xs) Ys :- !, deleteAll X Xs Ys.
@@ -38,7 +39,7 @@ mapred P (X :: Xs) (Y :: Ys) :- P X Y, !, mapred P Xs Ys.
 mapred P (X :: Xs) Ys :- mapred P Xs Ys.
 
 map F [] [].
-map F (X :: Xs) (F X :: Ys) :- map F Xs Ys.
+map F (X :: Xs) (X' :: Ys) :- X' is F X, map F Xs Ys.
 
 X in (X :: Xs).
 X in (Y :: Xs) :- X in Xs.
@@ -55,6 +56,12 @@ append (X :: Xs) Ys (X :: Zs) :- append Xs Ys Zs.
 
 foldedr _ Y [] Y.
 foldedr P I (X :: Xs) Y :-
-  foldedr P I Xs R, P X R Y.
+  foldedr P I Xs >>> P X @> Y.
 
 concat Xss Xs :- foldedr append [] Xss Xs.
+
+reverse Xs Ys :-
+  pi rev\
+     (pi A\ pi As\ pi Bs\ rev (A :: As) Bs :- rev As (A :: Bs))
+  => rev nil Ys
+  => rev Xs nil.

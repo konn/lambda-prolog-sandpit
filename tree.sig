@@ -1,5 +1,5 @@
 sig tree.
-accum_sig tuple, lists.
+accum_sig tuple, lists, control.
 
 kind tree   (type -> type -> type).
 type empty  (tree A B).
@@ -15,4 +15,10 @@ type mergeBy       ((B -> B -> B -> o) -> tree A B -> tree A B -> tree A B -> o)
 type list_to_tree  (list (tuple A B) -> tree A B -> o).
 type tree_to_list  (tree A B -> list (tuple A B) -> o).
 
-type foldTree      ((A -> B -> C -> C -> o) -> C -> tree A B -> C -> o).
+% Mapping tree's value, delete if no V' such P K V V'.
+type map_tree      ((K -> V -> V -> o) -> tree A B -> tree A B -> o).
+
+% Reducer takes key, value, left and right accumulators.
+type foldTree      ((K -> V -> A -> A -> A -> o) -> A -> tree K V -> A -> o).
+type filterTree    ((K -> V -> o) -> tree K V -> tree K V -> o).
+

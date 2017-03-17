@@ -14,3 +14,7 @@ sumMaybe _ _ _ nothing.
 
 try P (just A) :- P A, !.
 try P nothing.
+
+map_maybe _ nothing  nothing.
+map_maybe P (just A) (just B) :- P A B, !.
+map_maybe _ (just A) nothing.
